@@ -287,13 +287,31 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 <H3>Usage</H3>
 Instructions to import Projects
 <br> </br>
-<ol>
-	<li>Ensure the latest STM32CubeIDE software is downloaded on the chosen device. </li>
-	<li>Connect the STM32 board to the computer</li>
-	<li>Open the application and select “Import Project”</li>
- </ol>
 
-![Image](https://github.com/user-attachments/assets/75b6f0c1-c893-4c91-bc02-a9e28a2d47f0)
+1. Ensure the latest STM32CubeIDE software is downloaded on the chosen device.
+   
+2. Connect the STM32 board to the computer.
+   
+3. Open the application and select “Import Project”.
+ ![Image](https://github.com/user-attachments/assets/75b6f0c1-c893-4c91-bc02-a9e28a2d47f0)
+4. Select the desired project folder from your directory.
+ ![Image](https://github.com/user-attachments/assets/07443769-289d-417c-8020-bdd395f53d06)
+5. Select finish.
+   
+ ![Image](https://github.com/user-attachments/assets/1ca9df2c-acb4-4ba8-b99b-07bdb248d538) 
+ 
+6. Within the project in the source folder select assembly.s file and click the debug button.
+
+ ![Image](https://github.com/user-attachments/assets/8d616329-7b3a-4cbd-9536-0d6b6b57365e)
+
+7. Select either the play button to run through the entire code or step through it line by line with the arrow.
+
+ ![Image](https://github.com/user-attachments/assets/63089134-5046-4434-84d8-1fa757924fa1)
+
+
+
+
+
 
 	
 
