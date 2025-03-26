@@ -1,0 +1,137 @@
+.syntax unified
+.thumb
+
+.global main
+
+#include "initialise.s"
+#include "definitions.s"
+
+.data
+
+.align
+@ can allocate as an array
+@incoming_buffer: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+@ or allocate just as a block of space with this number of bytes
+incoming_buffer: .space 62
+
+@ One strategy is to keep a variable that lets you know the size of the buffer.
+incoming_counter: .byte 62
+
+@ Define a string
+tx_string: .asciz "Go Team#(this part won't print)"
+@ one way to know the length of the string is to just define it as a variable
+tx_length: .byte 28
+tx_terminating_char: .byte 35 @terminating character is #
+
+
+.text
+@ define text
+
+
+@ this is the entry function called from the c file
+main:
+
+	BL initialise_power
+	BL change_clock_speed
+	BL enable_peripheral_clocks
+	BL enable_uart
+
+
+button_loop:
+@ Check if the button (PA0) is pressed
+    BL button_press
+    CMP R0, #1
+    BEQ button_release
+
+    @ Wait for a short delay to debounce
+    BL delay_function
+
+    @ Repeat the loop
+    B button_loop
+
+button_press:
+	LDR R0, =GPIOA	@ port for the input button
+	LDR R1, [R0, IDR]
+	TST R1, 0x01
+	BEQ not_pressed
+	BNE pressed
+
+	BX LR
+not_pressed:
+	MOV R0, #0
+	BX LR
+
+pressed:
+	MOV R0, #1
+	BX LR
+
+button_release:
+    BL delay_function
+    BL button_press
+    CMP R0, #0
+    BNE button_release
+    BEQ tx_loop @once button released begins trasmitting string
+
+
+tx_loop:
+
+	@ the base address for the register to set up UART
+	LDR R0, =UART
+
+	@ load the memory addresses of the buffer and length information
+	LDR R1, =tx_string
+	LDR R2, =tx_length
+	LDR R6, =tx_terminating_char
+
+	@ dereference the length variable and term char
+	LDRB R2, [R2]
+	LDR R6, [R6]
+
+
+tx_uart:
+
+	LDR R3, [R0, USART_ISR] @ load the status of the UART
+	ANDS R3, 1 << UART_TXE  @ 'AND' the current status with the bit mask that we are interested in
+						    @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
+
+	@ loop back to check status again if the flag indicates there is no byte waiting
+	BEQ tx_uart
+
+	@ load the next value in the string into the transmit buffer for the specified UART
+	LDRB R5, [R1], #1
+	CMP R5, R6 @check if next character to be transmitted is terminating one
+	BEQ finished
+	STRB R5, [R0, USART_TDR]
+
+	@ note the use of the S on the end of the SUBS, this means that the register flags are set
+	@ and this subtraction can be used to make a branch
+	SUBS R2, #1
+
+	@ keep looping while there are more characters to send
+	BGT tx_uart
+
+	@ make a delay before sending again
+	BL delay_loop
+
+	@ loop back to the start
+	B tx_loop
+
+
+delay_function:
+	MOV R7, #0x03
+	BX LR
+
+@ a very simple delay
+@ you will need to find better ways of doing this
+delay_loop:
+	LDR R9, =0xfffff
+
+delay_inner:
+	SUBS R9, #1 @used for branching condition to see if R9 < #1
+	BGT delay_inner
+	BX LR @ return from function call
+
+finished:
+	B finished
+
+
