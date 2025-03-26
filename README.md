@@ -357,3 +357,37 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 			….
 	</pre>
 
+[Expected] When string reaches terminating character  in ‘check_palindrome_loop’ we branch into caesar_cipher
+
+[Output] Enters an infinite loop
+
+From this We’d know shift our focus to check_palindrome_loop.
+
+<br> </br>
+- <H4>System Testing</H4>A series of test cases were created to test boundary conditions and cover all possible scenarios when testing the transmitted string from UART1 to UART4. 
+
+
+  - Test Cases
+	<pre> 
+		Sending racecar#    With terminating character
+		Sending racecar      Without terminating character
+		Sending Hello#       Non-palindromic with terminating character
+		Sending Hello         Non-palindromic without terminating character
+	</pre>
+ 
+- <H4>Sanity Testing</H4>This was implemented to ensure minor changes and bug fixes didn’t affect the overall logic flow of our program. 
+
+  - Change byte configuration
+	<pre> 
+		LDR R4, =tx_terminating_char
+		LDRB R4, [R4] —> Altered from LDR R4, [R4]
+
+	</pre>
+ 
+  - Change bit configuration
+	<pre> 
+		.equ UART_ORECF, 3 @ Overrun clear flag
+		.equ UART_FECF, 1 @ Frame error clear flag  —-> Altered from   .equ UART_FECF, 3
+	</pre>
+<br> </br>
+
