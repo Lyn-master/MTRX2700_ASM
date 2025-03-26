@@ -284,5 +284,12 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 <pre> 
 </pre>
 
-
-
+<H3>Usage</H3>
+Instructions to import Projects
+<br> </br>
+<ol>
+	<li>Ensure the latest STM32CubeIDE software is downloaded on the chosen device. </li>
+	<li>Connect the STM32 board to the computer</li>
+	<li>Open the application and select “Import Project”</li>
+</ol>
+![Image](https://github.com/user-attachments/assets/0051edc1-82b4-4f1e-8cf3-7bb460e2ba0b) 
