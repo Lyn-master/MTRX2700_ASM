@@ -285,7 +285,7 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 </pre>
 
 <H3>Usage</H3>
-Instructions to import Projects
+[1]Instructions to import Projects
 <br> </br>
 
 1. Ensure the latest STM32CubeIDE software is downloaded on the chosen device.
@@ -308,7 +308,23 @@ Instructions to import Projects
 
  ![Image](https://github.com/user-attachments/assets/63089134-5046-4434-84d8-1fa757924fa1)
 
+[2]Instructions to use Cutecom
+<br> </br>
 
+1. Download Cutecom
+   
+2. Open the application
+   
+3. Select connect
+
+![Image](https://github.com/user-attachments/assets/0d5520aa-b567-46e0-a8f5-3b70bb563180)
+
+4. Select the desired device and baud rate before hitting open device
+
+![Image](https://github.com/user-attachments/assets/7ea8dd11-80e8-4ba9-b456-2e84afb75d7c)
+ 
+5. You will now be able to transmit and receive data from your board
+   
 
 
 
