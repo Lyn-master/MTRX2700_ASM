@@ -202,6 +202,83 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 		Output: LEDs switch between 2nd and 3rd being lit up and only 2nd being lit up
 </pre>
 
+<H3>[1.5.2 Tasks]</H3>
+<H4>Part a:</H4>Once a button is pressed a predefined string of characters is transmitted until it reaches the terminating character. 
+<br> </br>
+<pre> 
+	
+	Main:
+		initialise_power
+		enable_peripheral_clocks
+		enable_uart
+	
+	Button Function from 1-4-2 (c)
+	
+	Button_pressed:
+		→ tx_loop
+	
+	Tx_loop:
+	Check if ready to receive next character 
+	If not → tx_loop
+		If character to be transmitted is terminating one → finished
+		Transmit character
+	
+	Finished:
+		finished
+  	Testing
+
+</pre>
+
+<H4>Part b:</H4>
+<br> </br>
+<pre> 
+	
+</pre>
+
+<H4>Part c:</H4>
+<br> </br>
+<pre> 
+	
+	Change_clock_speed - scaffold provided in unit repository
+	 	Choose PLLMUL as 0001 which set clock to x3 frequency
+	
+	Enable UART - scaffold provided in unit repository
+		Store 0x1A1 to baud rate register (USART_BRR)
+	
+	Calculations
+		New clock speed = 8MHz x 3 = 24MHz
+		0x1A1 = 0b417
+		Baud rate = 24MHz/417 ≈ 57600
+	
+	Testing
+		To test the new baud rate, 1-5-2 (a) was tested except using the cutecom at baud rate 57600 instead of 115200.
+</pre>
+
+<H4>Part d:</H4>A string is received by the microcontroller until the terminating character is detected. The string is then transmitted back on the same UART.
+<br> </br>
+<pre> 
+	
+	Main:
+		Same initialisation as 1-5-2- (a)
+
+	Receive_function from 1-5-2- (b)
+		If terminating character → transmit_function
+
+	Transmit_function from 1-5-2- (a)
+
+	Testing
+
+		Receive and transmit functions have already been tested in previous parts so just need to test integration.
+
+	Integration test:
+		Input [cutecom text bar]: “hello#”
+		Output [cutecom display]: “hello”
+</pre>
+
+<H4>Part e:</H4>On one microcontroller USART 1 receives a string of characters and then retransmits it using UART 4 to a second microcontroller. This microcontroller receives the data through UART 4 and retransmits it through USART1.
+<br> </br>
+<pre> 
+</pre>
 
 
 
