@@ -291,5 +291,10 @@ Instructions to import Projects
 	<li>Ensure the latest STM32CubeIDE software is downloaded on the chosen device. </li>
 	<li>Connect the STM32 board to the computer</li>
 	<li>Open the application and select “Import Project”</li>
-</ol>
-![Image](https://github.com/user-attachments/assets/0051edc1-82b4-4f1e-8cf3-7bb460e2ba0b) 
+ </ol>
+
+![Image](https://github.com/user-attachments/assets/75b6f0c1-c893-4c91-bc02-a9e28a2d47f0)
+
+	
+
+
