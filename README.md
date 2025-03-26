@@ -284,7 +284,8 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 <pre> 
 </pre>
 
-<H3>Usage</H3>
+### Usage
+
 [1]Instructions to import Projects
 <br> </br>
 
@@ -326,9 +327,33 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 5. You will now be able to transmit and receive data from your board
    
 
+### Testing
+- <H4>Unit Testing</H4>Our integration task relies heavily on transmission and reception of a string. Several unit testing was used to test the functionality of this. 
 
-
-
+  - Testing String transmission
+	<pre> 
+		unit_test_transmit_string:
+		LDR   R0, = TEST_UART_BUFFER  @ R0 = pointer to UART buffer
+		LDR   R1, =test_string       @ R1 = pointer to test string "Test"
+		BL    transmit_string
 	
+	</pre>
+  - Deciphering Caesar Cipher
+  
+	<pre> 
+		unit_test_decipher:
+		LDR R0, = TEST_UART_BUFFER
+		LDR R1,  = caesar_string
+		BL decipher 
+	</pre>
+<br> </br>
+- <H4>Integration Testing</H4>We stepped through our modular functions in debug mode to examine the values in each register against the expected values.
 
+  - Palindrome Test
+	<pre> 
+		check_palindrome_loop:
+			….
+		caesar_cipher:
+			….
+	</pre>
 
