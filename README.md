@@ -1,8 +1,11 @@
 
 # Integration Task for STM32 using Assembly Language
-![Image](https://github.com/user-attachments/assets/3b6fc4a3-fdd8-4821-9cd1-20658e4070c9)
+
 This project exhibits serial communication between two STM32 boards using distinct UART interfaces (UART1 and UART4). Data is assessed for palindromic qualities before being conditionally encrypted or decrypted using the Caesar cypher.
 Timers are integrated to switch between modes.
+
+![Image](https://github.com/user-attachments/assets/3b6fc4a3-fdd8-4821-9cd1-20658e4070c9)
+
 ### Team Members
 
 - <H4>Hailey Thill-Turke</H4>
