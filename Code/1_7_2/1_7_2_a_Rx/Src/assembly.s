@@ -13,15 +13,9 @@
 
 .data
 
-ascii_string: .asciz "Mdhdm"   @Expected output: It is a palindrome, deciphered = Jrj
-
-
-vowel_array: .asciz "aoeiu" @define vowels
+vowel_array: .asciz "aoeiu" @define vowel array
 
 .align
-@ can allocate as an array
-@incoming_buffer: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-@ or allocate just as a block of space with this number of bytes
 incoming_buffer: .space 62
 
 @ One strategy is to keep a variable that lets you know the size of the buffer.
@@ -41,7 +35,7 @@ main:
 	BL enable_uart
 
 start:
-		@ To read in data, we need to use a memory buffer to store the incoming bytes
+
 	@ Get pointers to the buffer and counter memory areas
 	LDR R6, =incoming_buffer
 	LDR R7, =incoming_counter
@@ -59,29 +53,27 @@ loop_forever:
 	LDR R0, =UART4 @ the base address for the register to set up UART
 	LDR R1, [R0, USART_ISR] @ load the status of the UART
 
-	TST R1, 1 << UART_ORE | 1 << UART_FE  @ 'AND' the current status with the bit mask that we are interested in
-						   @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
+	TST R1, 1 << UART_ORE | 1 << UART_FE  @ 'TST' the current status with the bit mask that to check there is no frame error or overrun flag
 
 	BNE clear_error
 
-	TST R1, 1 << UART_RXNE @ 'AND' the current status with the bit mask that we are interested in
-							  @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
+	TST R1, 1 << UART_RXNE @ 'TST' the current status with the bit mask to see if new byte ready to be read
+
 	BEQ loop_forever @ loop back to check status again if the flag indicates there is no byte waiting
 
 	LDRB R3, [R0, USART_RDR] @ load the lowest byte (RDR bits [0:7] for an 8 bit read)
 
 	CMP R3, #35 @checking if last value read is temrinating character #
-	BEQ Cal_middle
-	STRB R3, [R6, R8]
-	ADD R8, #1
+	BEQ Cal_middle @if it is loop to start of palindrome functions
+	STRB R3, [R6, R8] @if not trasmite the byte
+	ADD R8, #1 @increment place in string
 
-	CMP R7, R8
-	BGT no_reset
-	MOV R8, #0
+	CMP R7, R8 @check if number of bytes transmitted is greater than buffer
+	BGT no_reset @if not no reset
+	MOV R8, #0 @if yes reset
 
 
 no_reset:
-
 	@ load the status of the UART
 	LDR R1, [R0, USART_RQR]
 	ORR R1, 1 << UART_RXFRQ
@@ -102,7 +94,6 @@ Cal_middle:
 
 	LSR R4,R8,#1    @ Calculates middle value e.g string of length 7, middle = 3.   --> 0 1 2 [3] 4 5 6. (Odd)
 						    @ String of length 8, middle = 4. --> 0 1 2 3 [4] 5 6 7
-
 	MOV R5, #0      @ Start counter
 
 
@@ -182,7 +173,6 @@ upper_case:
 	BGE update_str
 	ADD R4, R4, #26
 	B update_str
-
 
 
 lower_case:
