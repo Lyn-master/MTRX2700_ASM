@@ -242,14 +242,39 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 	
 	Finished:
 		finished
-  	Testing
+  
+	Testing
+		Input: “Go Team!# (this part won’t print)”
+		Output: “Go Team#”
 
 </pre>
 
-<H4>Part b:</H4>
+<H4>Part b:</H4>Receiving a string and storing it in a register until a terminating character is reached. 
 <br> </br>
 <pre> 
+	main: 
+		BL initialise_power
+		BL enable_peripheral_clocks
+		BL enable_uart
+		Define buffer space
+		Define start counter
 	
+	loop_forever:
+		Load UART
+		Load status register to check errors
+		Check if there's avaliable space in receiver (RXNE)
+		Load character to receiver register
+	no_reset:
+		Clear RXNE flag
+		Update flag to request register
+		Re-loop to forever
+	clear_error:
+		Clear overrun and frame error 
+	end_loop:
+		terminate execution
+	Testing
+		Input: "He#llo"
+		Output: "He"
 </pre>
 
 <H4>Part c:</H4>
