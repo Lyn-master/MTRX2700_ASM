@@ -252,6 +252,7 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 <H4>Part b:</H4>Receiving a string and storing it in a register until a terminating character is reached. 
 <br> </br>
 <pre> 
+	
 	main: 
 		BL initialise_power
 		BL enable_peripheral_clocks
