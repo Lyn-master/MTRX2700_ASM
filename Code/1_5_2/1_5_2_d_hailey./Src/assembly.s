@@ -11,16 +11,13 @@
 
 
 .align
-@ can allocate as an array
-@incoming_buffer: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-@ or allocate just as a block of space with this number of bytes
+@allocate a block of space with buffer number of bytes
 incoming_buffer: .space 62
 
 @ One strategy is to keep a variable that lets you know the size of the buffer.
 incoming_counter: .byte 62
 
 tx_terminating_char: .byte 35 @terminating character is #
-
 
 .text
 @ define text
@@ -34,7 +31,7 @@ main:
 	BL enable_peripheral_clocks
 	BL enable_uart
 
-		@ To read in data, we need to use a memory buffer to store the incoming bytes
+	
 	@ Get pointers to the buffer and counter memory areas
 	LDR R6, =incoming_buffer
 	LDR R7, =incoming_counter
@@ -52,13 +49,12 @@ loop_forever:
 	LDR R0, =UART @ the base address for the register to set up UART
 	LDR R1, [R0, USART_ISR] @ load the status of the UART
 
-	TST R1, 1 << UART_ORE | 1 << UART_FE  @ 'AND' the current status with the bit mask that we are interested in
-						   @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
+	TST R1, 1 << UART_ORE | 1 << UART_FE  @ 'TST' the current status with the bit mask that to check there is no frame error or overrun flag
+
 
 	BNE clear_error
 
-	TST R1, 1 << UART_RXNE @ 'AND' the current status with the bit mask that we are interested in
-							  @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
+	TST R1, 1 << UART_RXNE @ 'TST' the current status with the bit mask to see if new byte ready to be read
 
 	BEQ loop_forever @ loop back to check status again if the flag indicates there is no byte waiting
 
@@ -68,9 +64,9 @@ loop_forever:
 	CMP R3, #35 @checking if last value read is temrinating character #
 	BEQ tx_loop @if it is switch to transmitting back
 
-	CMP R7, R8
-	BGT no_reset
-	MOV R8, #0
+	CMP R7, R8 @check if number of bytes transmitted is greater than buffer
+	BGT no_reset @if not no reset
+	MOV R8, #0 @if yes reset
 
 
 no_reset:
@@ -108,8 +104,7 @@ tx_loop:
 tx_uart:
 
 	LDR R3, [R0, USART_ISR] @ load the status of the UART
-	ANDS R3, 1 << UART_TXE  @ 'AND' the current status with the bit mask that we are interested in
-						    @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
+	ANDS R3, 1 << UART_TXE  @ 'TST' the current status with the bit mask to see if there is a byte ready to be read
 
 	@ loop back to check status again if the flag indicates there is no byte waiting
 	BEQ tx_uart
@@ -118,7 +113,7 @@ tx_uart:
 	LDRB R5, [R6], #1
 	CMP R5, R4 @check if next character to be transmitted is terminating one
 	BEQ finished
-	STRB R5, [R0, USART_TDR]
+	STRB R5, [R0, USART_TDR] @if not terminating character trasmit it
 
 	@ make a delay before sending again
 	BL delay_loop
@@ -128,22 +123,22 @@ tx_uart:
 
 
 delay_function:
+
 	MOV R7, #0x03
 	BX LR
 
-@ a very simple delay
-@ you will need to find better ways of doing this
 delay_loop:
+
 	LDR R9, =0xfffff
 
 delay_inner:
-	@ notice the SUB has an S on the end, this means it alters the condition register
-	@ and can be used to make a branching decision.
+
 	SUBS R9, #1
 	BGT delay_inner
 	BX LR @ return from function call
 
 finished:
+
 	B finished
 
 
