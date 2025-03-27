@@ -17,7 +17,10 @@ tx_string: .asciz "Go Team#(this part won't print)"
 tx_length: .byte 28
 tx_terminating_char: .byte 35 @terminating character is #
 
+
 .text
+@ define text
+
 
 @ this is the entry function called from the c file
 main:

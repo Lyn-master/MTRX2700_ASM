@@ -9,7 +9,13 @@
 .data
 
 .align
+@ can allocate as an array
+@incoming_buffer: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+@ or allocate just as a block of space with this number of bytes
 incoming_buffer: .space 62
+
+@ One strategy is to keep a variable that lets you know the size of the buffer.
+incoming_counter: .byte 62
 
 @ Define a string
 tx_string: .asciz "Go Team#(this part won't print)"
@@ -17,7 +23,10 @@ tx_string: .asciz "Go Team#(this part won't print)"
 tx_length: .byte 28
 tx_terminating_char: .byte 35 @terminating character is #
 
+
 .text
+@ define text
+
 
 @ this is the entry function called from the c file
 main:

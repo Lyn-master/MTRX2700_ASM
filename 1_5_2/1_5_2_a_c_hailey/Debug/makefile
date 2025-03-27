@@ -59,8 +59,8 @@ all: main-build
 main-build: 1-5-2\ a.elf secondary-outputs
 
 # Tool invocations
-1-5-2\ a.elf 1-5-2\ a.map: $(OBJS) $(USER_OBJS) /Users/haileythill-turke/Documents/GitHub/MTRX2700/1-5-2-hailey/STM32F303VCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "1-5-2 a.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700/1-5-2-hailey/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="1-5-2 a.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+1-5-2\ a.elf 1-5-2\ a.map: $(OBJS) $(USER_OBJS) /Users/haileythill-turke/Documents/GitHub/MTRX2700_ASM/1_5_2/1_5_2_a_c_hailey/STM32F303VCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "1-5-2 a.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700_ASM/1_5_2/1_5_2_a_c_hailey/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="1-5-2 a.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

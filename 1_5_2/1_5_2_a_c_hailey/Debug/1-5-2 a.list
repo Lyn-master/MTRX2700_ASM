@@ -7,43 +7,43 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         0000023c  08000194  08000194  00001194  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000000  080003d0  080003d0  00002064  2**0
+  2 .rodata       00000000  080003d0  080003d0  00002060  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .ARM.extab    00000000  080003d0  080003d0  00002064  2**0
+  3 .ARM.extab    00000000  080003d0  080003d0  00002060  2**0
                   CONTENTS, READONLY
-  4 .ARM          00000000  080003d0  080003d0  00002064  2**0
+  4 .ARM          00000000  080003d0  080003d0  00002060  2**0
                   CONTENTS, READONLY
-  5 .preinit_array 00000000  080003d0  080003d0  00002064  2**0
+  5 .preinit_array 00000000  080003d0  080003d0  00002060  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   6 .init_array   00000004  080003d0  080003d0  000013d0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   7 .fini_array   00000004  080003d4  080003d4  000013d4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         00000064  20000000  080003d8  00002000  2**2
+  8 .data         00000060  20000000  080003d8  00002000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .ccmram       00000000  10000000  10000000  00002064  2**0
+  9 .ccmram       00000000  10000000  10000000  00002060  2**0
                   CONTENTS
- 10 .bss          0000001c  20000064  20000064  00002064  2**2
+ 10 .bss          0000001c  20000060  20000060  00002060  2**2
                   ALLOC
- 11 ._user_heap_stack 00000600  20000080  20000080  00002064  2**0
+ 11 ._user_heap_stack 00000604  2000007c  2000007c  00002060  2**0
                   ALLOC
- 12 .ARM.attributes 00000030  00000000  00000000  00002064  2**0
+ 12 .ARM.attributes 00000030  00000000  00000000  00002060  2**0
                   CONTENTS, READONLY
- 13 .debug_line   00000153  00000000  00000000  00002094  2**0
+ 13 .debug_line   00000153  00000000  00000000  00002090  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_line_str 00000088  00000000  00000000  000021e7  2**0
+ 14 .debug_line_str 00000096  00000000  00000000  000021e3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_info   00000055  00000000  00000000  0000226f  2**0
+ 15 .debug_info   00000055  00000000  00000000  00002279  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_abbrev 00000038  00000000  00000000  000022c4  2**0
+ 16 .debug_abbrev 00000038  00000000  00000000  000022ce  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_aranges 00000048  00000000  00000000  00002300  2**3
+ 17 .debug_aranges 00000048  00000000  00000000  00002308  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00000099  00000000  00000000  00002348  2**0
+ 18 .debug_str    000000a7  00000000  00000000  00002350  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_rnglists 00000019  00000000  00000000  000023e1  2**0
+ 19 .debug_rnglists 00000019  00000000  00000000  000023f7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  0000002c  00000000  00000000  000023fc  2**2
+ 20 .debug_frame  0000002c  00000000  00000000  00002410  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -60,7 +60,7 @@ Disassembly of section .text:
  80001a6:	2301      	movs	r3, #1
  80001a8:	7023      	strb	r3, [r4, #0]
  80001aa:	bd10      	pop	{r4, pc}
- 80001ac:	20000064 	.word	0x20000064
+ 80001ac:	20000060 	.word	0x20000060
  80001b0:	00000000 	.word	0x00000000
  80001b4:	080003b8 	.word	0x080003b8
 
@@ -73,7 +73,7 @@ Disassembly of section .text:
  80001c2:	f3af 8000 	nop.w
  80001c6:	bd08      	pop	{r3, pc}
  80001c8:	00000000 	.word	0x00000000
- 80001cc:	20000068 	.word	0x20000068
+ 80001cc:	20000064 	.word	0x20000064
  80001d0:	080003b8 	.word	0x080003b8
 
 080001d4 <enable_peripheral_clocks>:
@@ -441,9 +441,7 @@ delay_loop:
 080002f4 <delay_inner>:
 
 delay_inner:
-	@ notice the SUB has an S on the end, this means it alters the condition register
-	@ and can be used to make a branching decision.
-	SUBS R9, #1
+	SUBS R9, #1 @used for branching condition to see if R9 < #1
  80002f4:	f1b9 0901 	subs.w	r9, r9, #1
 	BGT delay_inner
  80002f8:	dcfc      	bgt.n	80002f4 <delay_inner>
@@ -463,11 +461,11 @@ finished:
 	LDR R0, =UART @ the base address for the register to turn clocks on/off
  8000308:	40013800 	.word	0x40013800
 	LDR R1, =tx_string
- 800030c:	2000003f 	.word	0x2000003f
+ 800030c:	2000003e 	.word	0x2000003e
 	LDR R2, =tx_length
- 8000310:	2000005f 	.word	0x2000005f
+ 8000310:	2000005e 	.word	0x2000005e
 	LDR R6, =tx_terminating_char
- 8000314:	20000060 	.word	0x20000060
+ 8000314:	2000005f 	.word	0x2000005f
 	LDR R9, =0xfffff
  8000318:	000fffff 	.word	0x000fffff
 
@@ -560,13 +558,13 @@ LoopForever:
   ldr r0, =_sdata
  8000358:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 800035c:	20000064 	.word	0x20000064
+ 800035c:	20000060 	.word	0x20000060
   ldr r2, =_sidata
  8000360:	080003d8 	.word	0x080003d8
   ldr r2, =_sbss
- 8000364:	20000064 	.word	0x20000064
+ 8000364:	20000060 	.word	0x20000060
   ldr r4, =_ebss
- 8000368:	20000080 	.word	0x20000080
+ 8000368:	2000007c 	.word	0x2000007c
 
 0800036c <ADC1_2_IRQHandler>:
  * @retval : None
