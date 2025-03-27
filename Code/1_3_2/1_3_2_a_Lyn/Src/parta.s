@@ -47,17 +47,26 @@ BEQ end_loop
 
 @ Check if in alphabet range A = 65 B = 90 a = 97 b = 122
 
+
 CMP R4, #65
 BLT next_letter
 
 CMP R4, #122
 BGT next_letter
 
-CMP R4, #90
-BLE upper_case
+@ Upper case range 65<= # < 91
+CMP R4, #91
+BLT upper_case
 
+@ Invalid case range 91 <= # <= 96
+
+CMP R4, #96
+BLE next_letter
+
+@ Lower case range 97 <= # <= 122
 CMP R4, #97
 BGE lower_case
+
 
 upper_case:
 
