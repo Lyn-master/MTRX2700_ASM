@@ -17,17 +17,17 @@ ascii_string:.asciz "@ab!xZ"  @Define ascii string
 
 main:
 
-LDR R1, = ascii_string @Memory address of string
+LDR R1, = ascii_string       @ Memory address of string
 
-MOV R2, #3 @ Value for right shift
+MOV R2, #3                   @ Value for right shift
 
-Mov R3, #0 @ Offset for incrementation
+Mov R3, #0                   @ Offset for incrementation
 
 
 
 string_loop:
 
-LDRB R4, [R1, R3]
+LDRB R4, [R1, R3]          @ Store each character into register R4
 CMP R4, #0                 @ Check end of string
 BEQ end_loop
 
@@ -57,23 +57,23 @@ BGE lower_case
 
 upper_case:
 
-ADD R4, R2
-CMP R4, #90
+ADD R4, R2              @ Increase ascii character by 3 spaces  
+CMP R4, #90             @ Compare with upper limit Z
 BLE update_str
-SUB R4, R4, #26
+SUB R4, R4, #26         @ Loop back from A
 B update_str
 
 lower_case:
-ADD R4, R2
+ADD R4, R2              @ Increase ascii character by 3 spaces 
 CMP R4, #122
-BLE update_str
-SUB R4, R4, #26
+BLE update_str          @ Compare with upper limit z
+SUB R4, R4, #26         @ Loop back from a
 B update_str
 
 
 
 update_str:
-STRB R4, [R1,R3]  @store in current place of string
+STRB R4, [R1,R3]  @store in current place of string, R1
 
 
 
