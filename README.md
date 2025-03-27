@@ -138,7 +138,7 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 
 </pre>
 
-<H4>Part b:</H4>
+<H4>Part b:</H4>Light up LEDs on the board with each user input through button press. Once all LEDs are lit, the program will dim all LEDs on the next button press and revert to original functionality.
 <br> </br>
 <pre> 
 
