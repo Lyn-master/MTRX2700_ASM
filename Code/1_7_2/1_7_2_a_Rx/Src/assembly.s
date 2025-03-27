@@ -193,7 +193,6 @@ next_letter:
 	B Decipher
 
 
-@ this is the entry function called from the startup file
 vowel:
 
 	LDR R2, =0x00 	@ counter to the current place in the string
@@ -213,16 +212,19 @@ string_loop:
 
 	B string_loop  @ loop to the next byte
 
-@if letter is between a-z check if vowel otherwise return
+@check if character above or equal to ascii value for a
+
 letter_detecting:
 	CMP R3, #97
-	BHS lower_z
-	BX LR
+	BHS lower_z @if it is check it is below or equal to ascii value for z
+	BX LR @if not back to main loop and moves onto next character
+ 
+@check if character less than or equal to ascii value for z
 
 lower_z:
 	CMP R3, #122
-	BLS vowel_detecting
-	BX LR
+	BLS vowel_detecting @if it is a letter branches to vowel_detecting
+	BX LR @if not back to main loop and moves onto next character
 
 vowel_detecting:
 
@@ -235,7 +237,7 @@ vowel_detecting:
 
 
 found_vowel:
-	ADD R7, #1
+	ADD R7, #1 @increment vowel counter
 
 no_vowel:
 	MOV R8, #0  @ Clear R8
