@@ -31,7 +31,7 @@
 .equ UART_FE, 1 @ Frame error
 
 .equ UART_ORECF, 3 @ Overrun clear flag
-.equ UART_FECF, 3 @ Frame error clear flag
+.equ UART_FECF, 1 @ Frame error clear flag
 
 
 @ different UARTs use different GPIOs for the pins
