@@ -321,6 +321,24 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 <H4>Part e:</H4>On one microcontroller USART 1 receives a string of characters and then retransmits it using UART 4 to a second microcontroller. This microcontroller receives the data through UART 4 and retransmits it through USART1.
 <br> </br>
 <pre> 
+	
+	Definition File additions
+
+		UART4 peripheral boundary address - 0x40004C00 
+		APB1 Peripheral clock enable register UART4 bit - 19
+
+	Initialise file additions
+
+		Set pins PC10 and PC11 to alternate function mode 5 [0101].
+		Set pins PC10 and PC11 to enable high speed [1111]. 
+		Set baud rate for UART 4
+		Enable UART 4’s transmit, receive and whole bits
+
+	In the Tx board transmit function, load the UART4 address at the beginning instead of the USART 1 address. Do this again for the Rx board receive function.
+	Testing
+		Input [cutecom text bar for tx board]]: “sending#”
+		Output [cutecom display screen]: “sending”
+
 </pre>
 
 ### Usage
