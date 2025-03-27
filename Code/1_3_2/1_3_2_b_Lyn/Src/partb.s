@@ -17,7 +17,7 @@
 
 .data
 
-ascii_string: .asciz "Rt"   @define ascii string
+ascii_string: .asciz "@!racecar!@"   @define ascii string
 
 palindrome_mess: .asciz "Is a palindrome\n"
 not_palindrome_mess: .asciz "Not a palindrome\n"
@@ -39,16 +39,17 @@ string_length:
 LDRB R3,[R1, R2]   @ Stores in R3, R1 + offset
 CMP R3, #0         @ Check end of string
 BEQ Palindrome
-Add R2, #1
+Add R2, #1         @ R2 stores the length of the string
 b string_length
 
 
 Palindrome:
 
-LSR R4,R2,#1    @ Calculates middle value
+LSR R4,R2,#1    @ Calculates middle value and store in R4
 MOV R5, #0      @ Start counter
 
 Loop:
+
 CMP R5, R4
 BGE is_palindrome
 
