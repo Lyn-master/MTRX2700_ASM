@@ -46,7 +46,7 @@ main:
 
 	@ To read in data, we need to use a memory buffer to store the incoming bytes
 	@ Get pointers to the buffer and counter memory areas
-	LDR R6, =incoming_buffer
+	LDR R1, =incoming_buffer
 	LDR R7, =incoming_counter
 
 	@ dereference the memory for the maximum buffer size, store it in R7
@@ -60,14 +60,14 @@ main:
 loop_forever:
 
 	LDR R0, =UART @ the base address for the register to set up UART
-	LDR R1, [R0, USART_ISR] @ load the status of the UART
+	LDR R6, [R0, USART_ISR] @ load the status of the UART
 
-	TST R1, 1 << UART_ORE | 1 << UART_FE  @ 'AND' the current status with the bit mask that we are interested in
+	TST R6, 1 << UART_ORE | 1 << UART_FE  @ 'AND' the current status with the bit mask that we are interested in
 						   @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
 
 	BNE clear_error
 
-	TST R1, 1 << UART_RXNE @ 'AND' the current status with the bit mask that we are interested in
+	TST R6, 1 << UART_RXNE @ 'AND' the current status with the bit mask that we are interested in
 							  @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
 
 	BEQ loop_forever @ loop back to check status again if the flag indicates there is no byte waiting
@@ -77,7 +77,7 @@ loop_forever:
 	CMP R3, #35
 	BEQ end_loop
 
-	STRB R3, [R6, R8]
+	STRB R3, [R1, R8]
 	ADD R8, #1
 
 	CMP R7, R8
@@ -88,9 +88,9 @@ loop_forever:
 no_reset:
 
 	@ load the status of the UART
-	LDR R1, [R0, USART_RQR]
-	ORR R1, 1 << UART_RXFRQ
-	STR R1, [R0, USART_RQR]
+	LDR R6, [R0, USART_RQR]
+	ORR R6, 1 << UART_RXFRQ
+	STR R6, [R0, USART_RQR]
 
 	BGT loop_forever
 
@@ -98,9 +98,9 @@ no_reset:
 clear_error:
 
 	@ Clear the overrun/frame error flag in the register USART_ICR (see page 897)
-	LDR R1, [R0, USART_ICR]
-	ORR R1, 1 << UART_ORECF | 1 << UART_FECF @ clear the flags (by setting flags to 1)
-	STR R1, [R0, USART_ICR]
+	LDR R6, [R0, USART_ICR]
+	ORR R6, 1 << UART_ORECF | 1 << UART_FECF @ clear the flags (by setting flags to 1)
+	STR R6, [R0, USART_ICR]
 	B loop_forever
 
 end_loop:
