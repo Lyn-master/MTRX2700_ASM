@@ -10,7 +10,7 @@
 
 .data
 @ define variables
-ascii_string: .asciz "hello!\0" @ Define a null-terminated string
+ascii_string: .asciz "Hello!\0" @ Define a null-terminated string
 vowel_array: .asciz "aoeiu" @define vowel array
 
 .text
