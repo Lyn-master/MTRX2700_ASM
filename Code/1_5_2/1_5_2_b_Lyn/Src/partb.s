@@ -11,18 +11,12 @@
 
 
 .align
-@ can allocate as an array
-@incoming_buffer: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-@ or allocate just as a block of space with this number of bytes
+
 incoming_buffer: .space 62
 
 @ One strategy is to keep a variable that lets you know the size of the buffer.
 incoming_counter: .byte 62
 
-@ Define a string
-tx_string: .asciz "Walnut is a beautiful cat\r\n"
-@ one way to know the length of the string is to just define it as a variable
-tx_length: .byte 27
 
 
 .text
@@ -35,13 +29,9 @@ main:
 	@ in class run through the functions to perform the config of the ports
 	@ for more details on changing the UART, refer to the week 3 live lecture/tutorial session.
 
-	BL initialise_power
-	@BL change_clock_speed
+	BL initialise_power  		
 	BL enable_peripheral_clocks
 	BL enable_uart
-
-	@ uncomment the next line to enter a transmission loop
-	@B tx_loop
 
 
 	@ To read in data, we need to use a memory buffer to store the incoming bytes
