@@ -47,6 +47,10 @@ flag(R2 = 0 or 1) without altering non-alphabetical characters.
 
 	End loop:
 		Finish iteration
+  
+	Testing
+		Input: ":)Hi[}"
+		Output: ":)HI{}" --> R2 = 1 convert all to uppercase
 </pre>
 
 
@@ -77,6 +81,10 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
   
 	end_loop:
 		Finish iteration
+  
+	Testing
+		Input: "@!Racecar!@"
+		Output: "Is a palindrome\n"
 </pre>
 
 <H4>Part c:</H4> A string is traversed and checked whether it's alphabetical. If it is alphabetical, we’d check whether it's upper_case or lower_case. Based on this characteristic, each letter is right shifted with a fixed value of 3. 
@@ -103,6 +111,10 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
   
 	end_loop:
 		Finish iteration 
+  
+	Testing
+		Input: "@!Racecar!@"
+		Output: "Is a palindrome\n" 
 </pre>
 
 <H3>[1.4.2 Tasks]</H3>
@@ -120,8 +132,8 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 		Store bitmask to LED address in GPIOE
 
 	Testing
-		Input: 0b00000111
-		Output: first 3 LEDs should light up
+		Input: "@ab!xZ" 
+		Output:"@de!aC" 
 
 </pre>
 
