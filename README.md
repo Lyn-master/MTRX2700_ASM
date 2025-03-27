@@ -179,9 +179,26 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 
 </pre>
 
-<H4>Part c:</H4>
+<H4>Part c:</H4>Used modules from part (b) and modified/added ones below to implement additional function (dim one LED when all LEDs are full and revert back to normal function when all LEDs are off).
 <br> </br>
 <pre> 
+	
+	Led_check:
+		Now checks for the LED state flag and branches to either increase or decrease number of LEDs lit
+
+	Led_empty:
+		Update flag for indicating all LEDs are off
+
+	Reduce_leds:
+		Same logic as increment_leds but reduce number of LEDs lit instead of increasing it
+  
+	Testing
+		All LEDs are off when launching program
+		One more LED should light up with each button press
+		Once all LEDs are lit, each button press would dim one LED
+		When all LEDs are off, button press reverts to original functionality to light up one more LED with each press
+		Pressing and holding the button down will once light up/dim one LED as program checks when the button is released
+
 </pre>
 
 <H4>Part d:</H4>The number of vowels in a string is counted and displayed in binary on the LEDs. The system then waits for the button to be pressed and switches to displaying the number of consonants of the string in binary. Each time the button is pressed the LEDs will switch between displaying the number of consonants and vowels. 
