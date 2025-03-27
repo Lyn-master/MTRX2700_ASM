@@ -1,0 +1,10 @@
+11:17:00 **** Incremental Build of configuration Debug for project 1_4_2_d_hailey ****
+make -j7 all 
+arm-none-eabi-size  1_4_2_d_hailey.elf 
+   text	   data	    bss	    dec	    hex	filename
+    860	     24	   1568	   2452	    994	1_4_2_d_hailey.elf
+Finished building: default.size.stdout
+ 
+
+11:17:00 Build Finished. 0 errors, 0 warnings. (took 478ms)
+

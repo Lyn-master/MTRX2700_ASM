@@ -33,34 +33,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := L01-array-example
+BUILD_ARTIFACT_NAME := 1_4_2_d_hailey
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-L01-array-example.elf \
+1_4_2_d_hailey.elf \
 
 MAP_FILES += \
-L01-array-example.map \
+1_4_2_d_hailey.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-L01-array-example.list \
+1_4_2_d_hailey.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: L01-array-example.elf secondary-outputs
+main-build: 1_4_2_d_hailey.elf secondary-outputs
 
 # Tool invocations
-L01-array-example.elf L01-array-example.map: $(OBJS) $(USER_OBJS) /Users/haileythill-turke/Documents/GitHub/MTRX2700/1-4-2-hailey/part\ (d)/STM32F303VCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "L01-array-example.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700/1-4-2-hailey/part (d)/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="L01-array-example.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+1_4_2_d_hailey.elf 1_4_2_d_hailey.map: $(OBJS) $(USER_OBJS) /Users/haileythill-turke/Documents/GitHub/MTRX2700_ASM/1_4_2/1_4_2_d_hailey/STM32F303VCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "1_4_2_d_hailey.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700_ASM/1_4_2/1_4_2_d_hailey/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="1_4_2_d_hailey.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -69,14 +69,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-L01-array-example.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "L01-array-example.list"
+1_4_2_d_hailey.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "1_4_2_d_hailey.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) L01-array-example.elf L01-array-example.list L01-array-example.map default.size.stdout
+	-$(RM) 1_4_2_d_hailey.elf 1_4_2_d_hailey.list 1_4_2_d_hailey.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

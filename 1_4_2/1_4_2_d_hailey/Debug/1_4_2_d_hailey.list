@@ -1,5 +1,5 @@
 
-L01-array-example.elf:     file format elf32-littlearm
+1_4_2_d_hailey.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -31,19 +31,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  13 .debug_line   00000129  00000000  00000000  00002040  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_line_str 000000f3  00000000  00000000  00002169  2**0
+ 14 .debug_line_str 000000a6  00000000  00000000  00002169  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_info   00000055  00000000  00000000  0000225c  2**0
+ 15 .debug_info   00000055  00000000  00000000  0000220f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_abbrev 00000038  00000000  00000000  000022b1  2**0
+ 16 .debug_abbrev 00000038  00000000  00000000  00002264  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_aranges 00000048  00000000  00000000  000022f0  2**3
+ 17 .debug_aranges 00000048  00000000  00000000  000022a0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000000f2  00000000  00000000  00002338  2**0
+ 18 .debug_str    000000a5  00000000  00000000  000022e8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_rnglists 00000019  00000000  00000000  0000242a  2**0
+ 19 .debug_rnglists 00000019  00000000  00000000  0000238d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  0000002c  00000000  00000000  00002444  2**2
+ 20 .debug_frame  0000002c  00000000  00000000  000023a8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
