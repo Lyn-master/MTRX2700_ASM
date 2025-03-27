@@ -415,6 +415,45 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 
 </pre>
 
+<H3>[1.7.2 Tasks]</H3>
+<H4>Part a:</H4> Transmits a string from UART1 with a terminating character and the string is received by Uart4. 
+<br> </br>
+<pre> 
+	
+	Tx Code
+		Receiving function from 1-5-2 (b)
+
+		Palindrome function from 1-3-2 (b)
+
+		Caesar cipher function from 1-3-2 (c)
+
+		Transmitting function from 1-5-2 (a)
+
+	Rx Code
+		Receiving function from 1-5-2 (b)
+
+		Palindrome function from 1-3-2 (b)
+	
+		Caesar Decipher
+
+		Vowel counting from 1-4-2 (d)
+
+	Start_timer
+		Initialise timer clock ad enable ARPE, set prescaler and Auto-Reload register to achieve 500ms delay
+		Triggered when decoding finishes
+	
+	Delay_function:
+		Loop until Status Register of the timer is triggered indicating delay time has been reached
+		Branch to switch loop to display number of vowels/consonants
+
+	Switch:
+		Clear the status register for next cycle
+		Use exclusive or to choose between displaying number of vowels/consonants
+
+
+</pre>
+
+
 
 ### Usage
 
