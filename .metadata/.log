@@ -433,3 +433,14 @@ java.lang.Exception: Resource '/1_3_2_a_Lyn' does not exist.
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-03-27 12:04:25.844
 !MESSAGE Indexed '1_7_2_a_Rx' (3 sources, 53 headers) in 1.46 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
+
+!ENTRY org.eclipse.core.resources 2 2 2025-03-27 12:09:20.235
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2025-03-27 12:09:20.236
+!MESSAGE The project description file (.project) for '1_7_2_a_Rx' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-03-27 12:21:40.513
+!MESSAGE Indexed '1-5-2 e' (0 sources, 0 headers) in 0.34 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-03-27 12:35:36.801
+!MESSAGE Indexed '1-5-2 e - Rx' (0 sources, 0 headers) in 0.002 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
