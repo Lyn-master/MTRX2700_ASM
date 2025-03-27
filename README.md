@@ -113,8 +113,8 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 		Finish iteration 
   
 	Testing
-		Input: "@!Racecar!@"
-		Output: "Is a palindrome\n" 
+		Input: "@ab!xZ" 
+		Output:"@de!aC" 
 </pre>
 
 <H3>[1.4.2 Tasks]</H3>
@@ -132,8 +132,8 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 		Store bitmask to LED address in GPIOE
 
 	Testing
-		Input: "@ab!xZ" 
-		Output:"@de!aC" 
+		Input: 0b00000111
+		Output: first 3 LEDs should light up
 
 </pre>
 
