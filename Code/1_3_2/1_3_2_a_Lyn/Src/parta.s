@@ -38,7 +38,7 @@ MOV R2, #1
 
 string_loop:
 
-LDRB R4, [R1, R3]
+LDRB R4, [R1, R3]          @ Load into R4 character from string
 CMP R4, #0                 @Check end of string
 BEQ end_loop
 
