@@ -73,7 +73,7 @@ upper_case:
 CMP R2, #0          @ Convert to lower case
 BNE next_letter
 ADD R4, 32          @ Add 32 to get lower case equivalent
-STRB R4, [R1,R3]    @ Store modification in current address
+STRB R4, [R1,R3]    @ Store modification in current address R1
 b next_letter
 
 lower_case:
@@ -81,13 +81,12 @@ lower_case:
 CMP R2, #1          @ Convert to upper case
 BNE next_letter
 SUB R4,32           @ Subtract 32 to get upper case equivalent
-STRB R4, [R1,R3]    @ Store modification in current address
+STRB R4, [R1,R3]    @ Store modification in current address R1
 
 
 next_letter:
 
 @Increment and restart loop
-
 ADD R3, #1
 b string_loop
 
