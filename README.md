@@ -18,6 +18,7 @@ Timers are integrated to switch between modes.
 
   - Coding/Implementation
   - Quality Assurance
+  - Documentation
 
 - <H4>Marilyn Tek</H4>
 
