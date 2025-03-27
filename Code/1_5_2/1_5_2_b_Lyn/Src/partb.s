@@ -29,7 +29,7 @@ main:
 	@ in class run through the functions to perform the config of the ports
 	@ for more details on changing the UART, refer to the week 3 live lecture/tutorial session.
 
-	BL initialise_power  		
+	BL initialise_power
 	BL enable_peripheral_clocks
 	BL enable_uart
 
@@ -52,7 +52,7 @@ loop_forever:
 	LDR R0, =UART @ the base address for the register to set up UART
 	LDR R6, [R0, USART_ISR] @ load the status of the UART
 
-	TST R6, 1 << UART_ORE | 1 << UART_FE  @ 'AND' the current status with the bit mask that we are interested in
+	TST R6, 1 << UART_ORE | 1 << UART_FE  	   @ 'AND' the current status with the bit mask that we are interested in
 						   @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
 
 	BNE clear_error
@@ -62,35 +62,35 @@ loop_forever:
 
 	BEQ loop_forever @ loop back to check status again if the flag indicates there is no byte waiting
 
-	LDRB R3, [R0, USART_RDR] @ load the lowest byte (RDR bits [0:7] for an 8 bit read)
+	LDRB R3, [R0, USART_RDR] @ Load the received character into register R3
 
-	CMP R3, #35
-	BEQ end_loop
+	CMP R3, #35       @ If terminating character
+	BEQ end_loop      @ Exit
 
-	STRB R3, [R1, R8]
+	STRB R3, [R1, R8]  @ Store character into buffer space R1
 	ADD R8, #1
 
 	CMP R7, R8
 	BGT no_reset
-	MOV R8, #0
+	MOV R8, #0  @Overwrite storage buffer
+
 
 
 no_reset:
 
 	@ load the status of the UART
-	LDR R6, [R0, USART_RQR]
-	ORR R6, 1 << UART_RXFRQ
-	STR R6, [R0, USART_RQR]
+	LDR R6, [R0, USART_RQR]  @ Move to request register
+	ORR R6, 1 << UART_RXFRQ  @ Clear RXNE flag
+	STR R6, [R0, USART_RQR]  @ Update value to request register
 
 	BGT loop_forever
 
 
 clear_error:
 
-	@ Clear the overrun/frame error flag in the register USART_ICR (see page 897)
-	LDR R6, [R0, USART_ICR]
-	ORR R6, 1 << UART_ORECF | 1 << UART_FECF @ clear the flags (by setting flags to 1)
-	STR R6, [R0, USART_ICR]
+	LDR R6, [R0, USART_ICR]				     @ Activate interrupt flag clear register
+	ORR R6, 1 << UART_ORECF | 1 << UART_FECF @ Clears overrun and framing error
+	STR R6, [R0, USART_ICR]					 @ Update value in clear register
 	B loop_forever
 
 end_loop:
