@@ -99,11 +99,11 @@ Cal_middle:
 
 Check_palindrome:
 
-	CMP R5, R4       @Check if incremented equals the middle value, if it does its a palindrome
+	CMP R5, R4         @Check if incremented equals the middle value, if it does its a palindrome
 	BGE is_palindrome
 
-	SUB R1, R8, R5    @ R1 = R2 - R5    e.g. R2 = 8 - 0 = 8
-	SUB R1, R1, #1    @ R1 = R2 -R5-1    e.g. R2 = 7 (As indexing starts at zero)
+	SUB R1, R8, R5     @ R1 = R2 - R5    e.g. R2 = 8 - 0 = 8
+	SUB R1, R1, #1     @ R1 = R2 -R5-1    e.g. R2 = 7 (As indexing starts at zero)
 
 	LDRB R7,[R6,R5]    @ First character e.g. R6[7]
 	LDRB R9,[R6,R1]    @ Last Character e.g. R6[0]
@@ -137,7 +137,7 @@ Decipher:
 	@Decipher the caesar cipher
 
 
-	LDRB R4, [R6, R3]          @ Load each character
+	LDRB R4, [R6, R3]          @ Load each character into R4
 	CMP R4, #0                 @ Check end of string
 	BEQ vowel               @ For the sake of testing  we'd have to branch to the vowel detector
 	@ Enter transmission loop 'b tx_loop'
@@ -168,19 +168,19 @@ Decipher:
 
 upper_case:
 
-	SUB R4, R2
-	CMP R4, #65
+	SUB R4, R2		@ De-step 3 characters back 
+	CMP R4, #65   		@ Compare with lowest ascii A 
 	BGE update_str
-	ADD R4, R4, #26
+	ADD R4, R4, #26		@ Loop back from Z
 	B update_str
 
 
 lower_case:
-	SUB R4, R2
-	CMP R4, #97
+	SUB R4, R2		@ De-step 3 characters back 
+	CMP R4, #97		@ Compare with lowest ascii a
 	BGE update_str
 	ADD R4, R4, #26
-	B update_str
+	B update_str		@ Loop back from z
 
 update_str:
 	STRB R4, [R6,R3]  @store in current place of string
