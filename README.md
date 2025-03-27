@@ -340,6 +340,64 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 		Output [cutecom display screen]: “sending”
 
 </pre>
+<H3>[1.6.2 Tasks]</H3>
+<H4>Part a:</H4>Users can input their desired delay time in microseconds by changing the delay_time variable, the delay time will be visualised by blinking LEDs with interval of desired delay time.
+<br> </br>
+<pre> 
+	
+	Delay_function:
+		Entry function to convert desired delay time in microseconds into number of clock cycles
+		Set up the Auto-Reload Register for counting
+	Enable_timer:
+		Reset all flags and counter
+		Start timer count
+	Wait_for_delay:
+		Checks for when the Status Register is raised to branch to action
+		Else keeps looping until flag is raised
+	Turn_on_led:
+		Visualise delay intervals by turning on/off four LEDs with the desired delay time
+		Reset Status Register for next cycle
+
+	Testing
+		Using oscilloscope to probe the frequency of LED resistor signal and checking if it matches the predetermined delay time
+
+</pre>
+<H4>Part b:</H4>Change the branch with the link function in the main function to millisecond_delay to execute the program.  Enable_timer, wait_for_delay, and turn_on_led are used for this part as well with functionality described in part (a).
+<br> </br>
+<pre> 
+	
+	Microsecond_delay:
+		Calculates the correct prescaler and number of counts needed to achieve microsecond delay
+
+	Second_delay:
+		Calculates the correct prescaler and number of counts needed to achieve second delay
+
+	Hour_delay:
+		Calculates the correct prescaler and number of counts needed to achieve hour delay
+
+	Millisecond_delay:
+		Set the correct prescaler value for a microsecond delay
+		Count 1000 times to achieve a one second delay in order to visualise the delay through LEDs
+
+	Testing
+		LEDs will blink at one second intervals indicating that the timer is indeed implementing a delay time of 1ms
+
+</pre>
+
+<H4>Part c:</H4>Uses functions Enable_timer, wait_for_delay, and turn_on_led for this part as well with functionality described in part (a).
+<br> </br>
+<pre> 
+	
+	Delay:
+		Enable ARPE to restrict prescaler changes to only when the timer overflows
+		Set the correct prescaler value for 1ms delays
+		Set the Auto-Reload Register to 500 in order to achieve 500ms delays
+		Branch to enable the timer and start counting 
+	Testing
+		LEDs will blink at 500ms intervals which can be validated by using an oscilloscope
+
+</pre>
+
 
 ### Usage
 
