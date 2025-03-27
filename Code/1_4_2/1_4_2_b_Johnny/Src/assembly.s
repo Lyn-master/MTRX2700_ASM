@@ -44,6 +44,7 @@ button_press:
 	BEQ not_pressed
 	BNE pressed
 
+	@ functions to update button status flag
 	not_pressed:
 		MOV R0, #0
 		BX LR
