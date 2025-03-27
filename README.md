@@ -138,7 +138,7 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 
 </pre>
 
-<H4>Part b:</H4>
+<H4>Part b:</H4>Light up LEDs on the board with each user input through button press. Once all LEDs are lit, the program will dim all LEDs on the next button press and revert to original functionality.
 <br> </br>
 <pre> 
 
@@ -242,14 +242,40 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 	
 	Finished:
 		finished
-  	Testing
+  
+	Testing
+		Input: “Go Team!# (this part won’t print)”
+		Output: “Go Team#”
 
 </pre>
 
-<H4>Part b:</H4>
+<H4>Part b:</H4>Receiving a string and storing it in a register until a terminating character is reached. 
 <br> </br>
 <pre> 
 	
+	main: 
+		BL initialise_power
+		BL enable_peripheral_clocks
+		BL enable_uart
+		Define buffer space
+		Define start counter
+	
+	loop_forever:
+		Load UART
+		Load status register to check errors
+		Check if there's avaliable space in receiver (RXNE)
+		Load character to receiver register
+	no_reset:
+		Clear RXNE flag
+		Update flag to request register
+		Re-loop to forever
+	clear_error:
+		Clear overrun and frame error 
+	end_loop:
+		terminate execution
+	Testing
+		Input: "He#llo"
+		Output: "He"
 </pre>
 
 <H4>Part c:</H4>
@@ -295,7 +321,83 @@ properties. All characters are initialised to lowercase to prevent case sensitiv
 <H4>Part e:</H4>On one microcontroller USART 1 receives a string of characters and then retransmits it using UART 4 to a second microcontroller. This microcontroller receives the data through UART 4 and retransmits it through USART1.
 <br> </br>
 <pre> 
+	
+	Definition File additions
+
+		UART4 peripheral boundary address - 0x40004C00 
+		APB1 Peripheral clock enable register UART4 bit - 19
+
+	Initialise file additions
+
+		Set pins PC10 and PC11 to alternate function mode 5 [0101].
+		Set pins PC10 and PC11 to enable high speed [1111]. 
+		Set baud rate for UART 4
+		Enable UART 4’s transmit, receive and whole bits
+
+	In the Tx board transmit function, load the UART4 address at the beginning instead of the USART 1 address. Do this again for the Rx board receive function.
+	Testing
+		Input [cutecom text bar for tx board]]: “sending#”
+		Output [cutecom display screen]: “sending”
+
 </pre>
+<H3>[1.6.2 Tasks]</H3>
+<H4>Part a:</H4>Users can input their desired delay time in microseconds by changing the delay_time variable, the delay time will be visualised by blinking LEDs with interval of desired delay time.
+<br> </br>
+<pre> 
+	
+	Delay_function:
+		Entry function to convert desired delay time in microseconds into number of clock cycles
+		Set up the Auto-Reload Register for counting
+	Enable_timer:
+		Reset all flags and counter
+		Start timer count
+	Wait_for_delay:
+		Checks for when the Status Register is raised to branch to action
+		Else keeps looping until flag is raised
+	Turn_on_led:
+		Visualise delay intervals by turning on/off four LEDs with the desired delay time
+		Reset Status Register for next cycle
+
+	Testing
+		Using oscilloscope to probe the frequency of LED resistor signal and checking if it matches the predetermined delay time
+
+</pre>
+<H4>Part b:</H4>Change the branch with the link function in the main function to millisecond_delay to execute the program.  Enable_timer, wait_for_delay, and turn_on_led are used for this part as well with functionality described in part (a).
+<br> </br>
+<pre> 
+	
+	Microsecond_delay:
+		Calculates the correct prescaler and number of counts needed to achieve microsecond delay
+
+	Second_delay:
+		Calculates the correct prescaler and number of counts needed to achieve second delay
+
+	Hour_delay:
+		Calculates the correct prescaler and number of counts needed to achieve hour delay
+
+	Millisecond_delay:
+		Set the correct prescaler value for a microsecond delay
+		Count 1000 times to achieve a one second delay in order to visualise the delay through LEDs
+
+	Testing
+		LEDs will blink at one second intervals indicating that the timer is indeed implementing a delay time of 1ms
+
+</pre>
+
+<H4>Part c:</H4>Uses functions Enable_timer, wait_for_delay, and turn_on_led for this part as well with functionality described in part (a).
+<br> </br>
+<pre> 
+	
+	Delay:
+		Enable ARPE to restrict prescaler changes to only when the timer overflows
+		Set the correct prescaler value for 1ms delays
+		Set the Auto-Reload Register to 500 in order to achieve 500ms delays
+		Branch to enable the timer and start counting 
+	Testing
+		LEDs will blink at 500ms intervals which can be validated by using an oscilloscope
+
+</pre>
+
 
 ### Usage
 
